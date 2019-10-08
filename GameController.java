@@ -20,9 +20,9 @@
 import java.util.Scanner;
 
 public class GameController {
-	ArcticTrack arcticTrack;
+	Track arcticTrack;
 	SUV arcticCar;
-	DesertTrack desertTrack;
+	Track desertTrack;
 	Sports desertCar;
 	final int zero = 0;
 	char arctCar = 'z';
@@ -38,11 +38,11 @@ public class GameController {
 	public GameController(){
 		//first make the two cars and the two tracks
     	//arctic track and car
-    	arcticTrack = new ArcticTrack();
+    	arcticTrack = new Track();
     	arcticCar = new SUV();
     	
     	//desert track and car
-    	desertTrack = new DesertTrack();
+    	desertTrack = new Track();
     	desertCar = new Sports();
     	
     	//put the cars in the tracks
@@ -57,7 +57,8 @@ public class GameController {
     	//create infinite loop that will end if one car wins
     	//or both cars run out of fuel
     	//or player quits simulation
-    	int infinite = -1;
+		int infinite = -1;
+
     	for(int i = 0; i > infinite; i++){
     		//show output of tracks 
     		System.out.println();
@@ -69,7 +70,7 @@ public class GameController {
         	System.out.println("");
         	
         	//roll for a blizzard
-        	arcticTrack.blizzard();
+        	arcticTrack.genDisaster(arcticTrack.rollDice());
         	//ask for commands (SUV)
         	suvDisplay();
         	//execute commands (SUV
@@ -100,7 +101,7 @@ public class GameController {
         	System.out.println();
         	
         	//roll for a heat wave 
-        	desertTrack.heatWave();
+        	desertTrack.genDisaster(desertTrack.rollDice());
         	//ask for commands(sports car)
         	sportsDisplay();
         	//execute commands
@@ -130,7 +131,7 @@ public class GameController {
 	
 	public void suvDisplay(){
 		//check if track has a blizzard 
-		checkBlizzard = arcticTrack.getBlizzard();
+		checkBlizzard = arcticTrack.getDisaster();
 		if(checkBlizzard == true || globalBlizzard == true){
 			System.out.println("WARNING: EXTREME CONDITIONS ON ROAD");
 		}
@@ -151,7 +152,7 @@ public class GameController {
 	}
 	public void sportsDisplay(){
 		//check if track has a heat wave
-		checkHeatWave = desertTrack.getHeatWave();
+		checkHeatWave = desertTrack.getDisaster();
 		if(checkHeatWave == true || globalHeatWave == true){
 			System.out.println("WARNING: EXTREME CONDITIONS ON ROAD");
 		}
