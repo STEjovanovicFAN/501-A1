@@ -80,7 +80,7 @@ public class GameController {
         	if(breakLoop == true){
         		//check what car won
         		//arctic car
-        		boolean aCarWon = arcticTrack.isWon();
+        		boolean aCarWon = arcticTrack.finisedTrack();
         		if(aCarWon == true || positionACar == 24){
         			//display last image of track and state that the SUV won
             		//show last output of tracks 
@@ -110,7 +110,7 @@ public class GameController {
         	//check if loop is broken
         	if(breakLoop == true){
         		//check if car won
-        		boolean dCarWon = desertTrack.isWon();
+        		boolean dCarWon = desertTrack.finisedTrack();
         		if(dCarWon == true || positionDCar == 24){
         			//display last image of track and state that the desert car won
             		//show last output of tracks 

@@ -1,5 +1,8 @@
 import junit.framework.TestCase;
 import static org.junit.Assert.*;
+
+import java.beans.Transient;
+
 import org.junit.*;
 
 public class jUnitTests extends TestCase {
@@ -35,6 +38,21 @@ public class jUnitTests extends TestCase {
     }
 
     //2---
+    @Test
+    public void testTrackNotFinishedRace(){
+        Sports car = new Sports();
+        Track track = new Track();
 
+        track.setLocation(car, 0);
+        assertFalse("Error expected false, got true", track.finisedTrack());
+    }
   
+    @Test
+    public void testTrackFinishedRace(){
+        Sports car = new Sports();
+        Track track = new Track();
+
+        track.setLocation(car, 24);
+        assertTrue("Error expected false, got true", track.finisedTrack());
+    }
 }

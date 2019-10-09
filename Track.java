@@ -122,26 +122,13 @@ public class Track
 		return(disaster);
 	}
 
-    // The whole track is empty except for a single car so if a car reaches the 
-    // final column then the simulation is 'won' for this track.
-    public boolean isWon ()
+	//Check to see if the car is in the final column of the track, if so then the car has finished the race 
+    public boolean finisedTrack ()
     {
-    	boolean trackNull = false;
-    	int c;
-    	for (c = 0; c < SIZE; c++){
-    		if(aTrack[c] != null){
-    			trackNull = false;
-    			break;
-    		}
-    		trackNull = true;
-    	}
- 	       
-    	
-	   if (aTrack[SIZE-1] != null || trackNull == true)
-	       return true;
-	   
-	   else
-	       return false;
+		if(aTrack[SIZE-1] != null){
+			return true;
+		}
+		return false;
     }
 	
 }
