@@ -55,4 +55,22 @@ public class jUnitTests extends TestCase {
         track.setLocation(car, 24);
         assertTrue("Error expected false, got true", track.finisedTrack());
     }
+
+    //3---
+    @Test
+    public void testReasonWhyGameEnded(){
+        GameController gc = new GameController();
+
+        Sports car1 = new Sports();
+        Track track1 = new Track();
+        track1.setLocation(car1, 0);
+
+        Sports car2 = new Sports();
+        Track track2 = new Track();
+        track2.setLocation(car2,24);
+
+        assertEquals("The SUV won!", gc.checkWhyLoopFinished(track2, track1));
+        assertEquals("The sports car won!", gc.checkWhyLoopFinished(track1, track2));
+        assertEquals("User (through input 'q') decided to quit the program!", gc.checkWhyLoopFinished(track1, track1));
+    }
 }

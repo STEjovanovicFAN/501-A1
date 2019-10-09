@@ -52,83 +52,56 @@ public class GameController {
 		
 	}
 	
-	
 	public void start(){
-    	//create infinite loop that will end if one car wins
-    	//or both cars run out of fuel
-    	//or player quits simulation
-		int infinite = -1;
-
-    	for(int i = 0; i > infinite; i++){
-    		//show output of tracks 
-    		System.out.println();
-        	System.out.println("ARCTIC TRACK");
-        	arcticTrack.display();
-        	System.out.println("");
-        	System.out.println("DESERT TRACK");
-        	desertTrack.display();
-        	System.out.println("");
+		//infinte loop until a car wins or the user selects to exit program
+    	while(-1 < 1){ 
+			formatDisplay();
         	
-        	//roll for a blizzard
         	arcticTrack.genDisaster(arcticTrack.rollDice());
-        	//ask for commands (SUV)
         	suvDisplay();
-        	//execute commands (SUV
         	identifyInputSUV(arctCar);
         	
-        	//check if loop is broken
-        	if(breakLoop == true){
-        		//check what car won
-        		//arctic car
-        		boolean aCarWon = arcticTrack.finisedTrack();
-        		if(aCarWon == true || positionACar == 24){
-        			//display last image of track and state that the SUV won
-            		//show last output of tracks 
-            		System.out.println();
-                	System.out.println("ARCTIC TRACK");
-                	arcticTrack.display();
-                	System.out.println("");
-                	System.out.println("DESERT TRACK");
-                	desertTrack.display();
-                	System.out.println("");
-                	//message that the SUV won
-        			System.out.println("The SUV won!"); 
-        		}
-        		break;
-        	}
+        	if(breakLoop){
+				System.out.println(checkWhyLoopFinished(arcticTrack,desertTrack));
+				break;
+			}
         	
-        	//spacing
         	System.out.println();
         	
-        	//roll for a heat wave 
         	desertTrack.genDisaster(desertTrack.rollDice());
-        	//ask for commands(sports car)
         	sportsDisplay();
-        	//execute commands
         	identifyInputSports(destCar);
         	
-        	//check if loop is broken
-        	if(breakLoop == true){
-        		//check if car won
-        		boolean dCarWon = desertTrack.finisedTrack();
-        		if(dCarWon == true || positionDCar == 24){
-        			//display last image of track and state that the desert car won
-            		//show last output of tracks 
-            		System.out.println();
-                	System.out.println("ARCTIC TRACK");
-                	arcticTrack.display();
-                	System.out.println("");
-                	System.out.println("DESERT TRACK");
-                	desertTrack.display();
-                	System.out.println("");
-                	//message that the sports car won
-        			System.out.println("The sports car won!"); 
-        		}
-        		break;
-        	}
+        	if(breakLoop){
+				System.out.println(checkWhyLoopFinished(arcticTrack,desertTrack));
+				break;
+			}
     	}
 	}
+
+	public void formatDisplay(){
+		System.out.println("\n" + "ARCTIC TRACK");
+		arcticTrack.display();
+		System.out.println("\n" + "DESERT TRACK");
+		desertTrack.display();
+		System.out.println("");
+	}
 	
+	public String checkWhyLoopFinished(Track arct, Track des){
+		if(arct.finisedTrack()){
+			formatDisplay();
+			return "The SUV won!";
+		}
+
+		if(des.finisedTrack()){
+			formatDisplay();
+			return "The sports car won!"; 
+		}
+
+		return "User (through input 'q') decided to quit the program!";
+
+	}
+
 	public void suvDisplay(){
 		//check if track has a blizzard 
 		checkBlizzard = arcticTrack.getDisaster();
