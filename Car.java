@@ -87,4 +87,8 @@ public class Car
 	   s = s + appearance;
 	   return s;
     }
+
+    public char getApperence(){
+        return appearance;
+    }
 }

@@ -24,9 +24,8 @@ public class GameController {
 	SUV arcticCar;
 	Track desertTrack;
 	Sports desertCar;
-	final int zero = 0;
-	char arctCar = 'z';
-	char destCar = 'z';
+	GameControllerDisplayAndInputs display;
+	
 	boolean breakLoop = false;
 	boolean checkBlizzard;
 	boolean checkHeatWave;
@@ -48,100 +47,39 @@ public class GameController {
     	//put the cars in the tracks
     	int initalPosition = 0;
     	arcticTrack.setLocation(arcticCar, initalPosition);
-    	desertTrack.setLocation(desertCar, initalPosition);
+		desertTrack.setLocation(desertCar, initalPosition);
 		
+		//game controller display 
+		display = new GameControllerDisplayAndInputs();
 	}
 	
 	public void start(){
 		//infinte loop until a car wins or the user selects to exit program
     	while(-1 < 1){ 
-			formatDisplay();
-        	
-        	arcticTrack.genDisaster(arcticTrack.rollDice());
-        	suvDisplay();
-        	identifyInputSUV(arctCar);
+			display.formatDisplay(arcticTrack, desertTrack);
+
+			arcticTrack.genDisaster(arcticTrack.rollDice());
+			checkBlizzard = arcticTrack.getDisaster();
+			System.out.print(display.carDisplay(arcticCar.getApperence(), checkBlizzard, globalBlizzard));
+        	identifyInputSUV(display.getInput());
         	
         	if(breakLoop){
-				System.out.println(checkWhyLoopFinished(arcticTrack,desertTrack));
+				System.out.println(display.checkWhyLoopFinished(arcticTrack,desertTrack));
 				break;
 			}
         	
         	System.out.println();
         	
-        	desertTrack.genDisaster(desertTrack.rollDice());
-        	sportsDisplay();
-        	identifyInputSports(destCar);
+			desertTrack.genDisaster(desertTrack.rollDice());
+			checkHeatWave = desertTrack.getDisaster();
+			System.out.print(display.carDisplay(desertCar.getApperence(), checkHeatWave, globalHeatWave));
+        	identifyInputSports(display.getInput());
         	
         	if(breakLoop){
-				System.out.println(checkWhyLoopFinished(arcticTrack,desertTrack));
+				System.out.println(display.checkWhyLoopFinished(arcticTrack,desertTrack));
 				break;
 			}
     	}
-	}
-
-	public void formatDisplay(){
-		System.out.println("\n" + "ARCTIC TRACK");
-		arcticTrack.display();
-		System.out.println("\n" + "DESERT TRACK");
-		desertTrack.display();
-		System.out.println("");
-	}
-	
-	public String checkWhyLoopFinished(Track arct, Track des){
-		if(arct.finisedTrack()){
-			formatDisplay();
-			return "The SUV won!";
-		}
-
-		if(des.finisedTrack()){
-			formatDisplay();
-			return "The sports car won!"; 
-		}
-
-		return "User (through input 'q') decided to quit the program!";
-
-	}
-
-	public void suvDisplay(){
-		//check if track has a blizzard 
-		checkBlizzard = arcticTrack.getDisaster();
-		if(checkBlizzard == true || globalBlizzard == true){
-			System.out.println("WARNING: EXTREME CONDITIONS ON ROAD");
-		}
-			
-		//display
-		System.out.println("SUV driving options");
-		System.out.println("(a)ll wheel drive mode");
-		System.out.println("(d)rive normally");
-		System.out.println("(q)uit simulation");
-		System.out.print("Enter selection: ");
-		
-		//get input
-		String userInput = new Scanner(System.in).nextLine();
-		char result = ' ';
-		result = userInput.charAt(zero);
-		arctCar = result;
-		
-	}
-	public void sportsDisplay(){
-		//check if track has a heat wave
-		checkHeatWave = desertTrack.getDisaster();
-		if(checkHeatWave == true || globalHeatWave == true){
-			System.out.println("WARNING: EXTREME CONDITIONS ON ROAD");
-		}
-		
-		//display
-		System.out.println("Sportscar driving options");
-		System.out.println("(d)rive normally");
-		System.out.println("(q)uit simulation");
-		System.out.print("Enter selection: ");
-		
-		//get input
-		String userInput1 = new Scanner(System.in).nextLine();
-		char result = ' ';
-		result = userInput1.charAt(zero);
-		destCar = result;
-
 	}
 	
 	public void identifyInputSUV(char SUV){
@@ -227,17 +165,8 @@ public class GameController {
 			case 'c':
 			case 'C':
 				//enable cheat mode for this turn
-				System.out.println("");
-				System.out.println("(0) Toggle debugging messages on/off");
-				System.out.println("(1) Change fuel of sports car");
-				System.out.println("(2) Change fuel of SUV car");
-				System.out.println("(3) Change location of sports car");
-				System.out.println("(4) Change location of SUV car");
-				System.out.println("(5) Make blizzard in arctic track");
-				System.out.println("(6) Make a heat wave in desert track");
-				System.out.print("Enter Selection: ");
-				int userInput = new Scanner(System.in).nextInt();
-				cheatOptions(userInput);
+				System.out.println(display.cheatDisplay());
+				cheatOptions(display.getInput());
 				break;
 			
 			case 'q':
@@ -292,17 +221,8 @@ public class GameController {
 			case 'c':
 			case 'C':
 				//enable cheat mode for this turn
-				System.out.println("");
-				System.out.println("(0) Toggle debugging messages on/off");
-				System.out.println("(1) Change fuel of sports car");
-				System.out.println("(2) Change fuel of SUV car");
-				System.out.println("(3) Change location of sports car");
-				System.out.println("(4) Change location of SUV car");
-				System.out.println("(5) Make blizzard in arctic track");
-				System.out.println("(6) Make a heat wave in desert track");
-				System.out.print("Enter Selection: ");
-				int userInput = new Scanner(System.in).nextInt();
-				cheatOptions(userInput);
+				System.out.print(display.cheatDisplay());
+				cheatOptions(display.getInput());
 				break;
 			
 			case 'q':

@@ -4,6 +4,9 @@ import static org.junit.Assert.*;
 import java.beans.Transient;
 
 import org.junit.*;
+import java.io.InputStream;
+import java.io.ByteArrayInputStream;
+
 
 public class jUnitTests extends TestCase {
 
@@ -59,7 +62,7 @@ public class jUnitTests extends TestCase {
     //3---
     @Test
     public void testReasonWhyGameEnded(){
-        GameController gc = new GameController();
+        GameControllerDisplayAndInputs gc = new GameControllerDisplayAndInputs();
 
         Sports car1 = new Sports();
         Track track1 = new Track();
@@ -73,4 +76,57 @@ public class jUnitTests extends TestCase {
         assertEquals("The sports car won!", gc.checkWhyLoopFinished(track1, track2));
         assertEquals("User (through input 'q') decided to quit the program!", gc.checkWhyLoopFinished(track1, track1));
     }
+    //4--- 
+    @Test
+    public void testDesertCarDisplay(){
+        GameControllerDisplayAndInputs dis = new GameControllerDisplayAndInputs();
+        String outOne = "WARNING: EXTREME CONDITIONS ON ROAD" + 
+         "\n" + "Sportscar driving options" + 
+         "\n" + "(d)rive normally" + 
+         "\n" + "(q)uit simulation" + 
+         "\n" + "Enter selection: ";
+
+        String outTwo = "Sportscar driving options" + 
+        "\n" + "(d)rive normally" + 
+        "\n" + "(q)uit simulation" + 
+        "\n" + "Enter selection: ";
+    
+        assertEquals(outOne, dis.carDisplay('S', true, true));
+        assertEquals(outOne, dis.carDisplay('S', false, true));
+        assertEquals(outOne, dis.carDisplay('S', true, false));
+        assertEquals(outTwo, dis.carDisplay('S', false, false));
+    } 
+ 
+    @Test
+    public void testArcticCarDisplay(){
+        GameControllerDisplayAndInputs dis = new GameControllerDisplayAndInputs();
+        String outOne = "WARNING: EXTREME CONDITIONS ON ROAD" + 
+         "\n" + "SUV driving options" + 
+         "\n" + "(a)ll wheel drive mode" + 
+         "\n" + "(d)rive normally" + 
+         "\n" + "(q)uit simulation" + 
+         "\n" + "Enter selection: ";
+
+        String outTwo ="SUV driving options" + 
+        "\n" + "(a)ll wheel drive mode" + 
+        "\n" + "(d)rive normally" + 
+        "\n" + "(q)uit simulation" + 
+        "\n" + "Enter selection: ";
+    
+        assertEquals(outOne, dis.carDisplay('V', true, true));
+        assertEquals(outOne, dis.carDisplay('V', false, true));
+        assertEquals(outOne, dis.carDisplay('V', true, false));
+        assertEquals(outTwo, dis.carDisplay('V', false, false));
+    } 
+ 
+    @Test
+    public void testInputs(){
+        GameControllerDisplayAndInputs dis = new GameControllerDisplayAndInputs();
+
+        String input = "ABAA";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        assertEquals('A', dis.getInput());
+    }
+    
 }
