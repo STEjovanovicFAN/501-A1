@@ -129,4 +129,13 @@ public class jUnitTests extends TestCase {
         assertEquals('A', dis.getInput());
     }
     
+    //5---
+    @Test
+    public void testDoubleConsumtionRate(){
+        Sports car = new Sports();
+
+        assertEquals(8,car.doubleConsumtionRate(4));
+        assertEquals(0,car.doubleConsumtionRate(0));
+        assertEquals(-2,car.doubleConsumtionRate(-1));
+    }
 }

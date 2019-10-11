@@ -13,6 +13,10 @@ public class Sports extends Car{
 		return(STANDARD_DISTANCE);
 	}
 
+	public int doubleConsumtionRate(int consumtionRate){
+		return consumtionRate * 2;
+	}
+
 	public int moveInConditions(){
 		if(Debug.on == true){
 			System.out.println("<<<< In Class Sports, Method: moveInConditions >>>>");
@@ -29,9 +33,9 @@ public class Sports extends Car{
 		}
 		
 		else{
-			consumeFuel(CONSUMPTION_RATE * 2);
+			consumeFuel(doubleConsumtionRate(CONSUMPTION_RATE));
 			System.out.println("Current fuel: " + getFuel());
-			System.out.println("Fuel use: " + (CONSUMPTION_RATE * 2));
+			System.out.println("Fuel use: " + doubleConsumtionRate(CONSUMPTION_RATE));
 	  		return STANDARD_DISTANCE;
 		}
 	}
